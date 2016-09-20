@@ -1,0 +1,22 @@
+{
+  "name": "react-ui-form",
+  "version": "0.1.0",
+  "description": "A set of HoC to help with form management in ReactJS",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "tape tests/*.jsx"
+  },
+  "keywords": [
+    "reactjs",
+    "forms",
+    "validation"
+  ],
+  "author": "Gian Marco Toso <info@gianmarcotoso.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "react": "^15.3.2"
+  },
+  "dependencies": {
+    "lodash.isequal": "^4.4.0"
+  }
+}
