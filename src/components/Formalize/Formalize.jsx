@@ -38,7 +38,7 @@ let Formalize = Content => class extends Component {
         }
     }
 
-    async handleFormValueChange(property, value) {
+    handleFormValueChange(property, value) {
 		const data = {
 			...this.state.data,
 			[property]: value
@@ -48,7 +48,7 @@ let Formalize = Content => class extends Component {
 			this.props.clearValidationStatus()
 		}
 
-        this.setState({data}, Promise.resolve)
+        this.setState({data})
     }
 
     handleFormSubmit(event) {

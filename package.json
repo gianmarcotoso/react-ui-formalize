@@ -4,7 +4,7 @@
   "description": "A set of HoC to help with form management in ReactJS",
   "main": "dist/index.js",
   "scripts": {
-    "test": "tape tests/*.jsx"
+    "test": "node_modules/.bin/tape -r babel-polyfill -r babel-register src/**/*.spec.jsx | node_modules/.bin/faucet"
   },
   "keywords": [
     "reactjs",
@@ -14,7 +14,21 @@
   "author": "Gian Marco Toso <info@gianmarcotoso.com>",
   "license": "MIT",
   "devDependencies": {
-    "react": "^15.3.2"
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-polyfill": "^6.13.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-2": "^6.13.0",
+    "enzyme": "^2.4.1",
+    "faucet": "0.0.1",
+    "jsdom": "^9.5.0",
+    "react": "^15.3.2",
+    "react-addons-test-utils": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "sinon": "^1.17.6",
+    "tape": "^4.6.0",
+    "webpack": "^1.13.2"
   },
   "dependencies": {
     "lodash.isequal": "^4.4.0"
