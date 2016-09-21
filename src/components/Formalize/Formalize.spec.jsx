@@ -25,15 +25,11 @@ global.navigator = {
 test('it does its thing with a simple form', t => {
 	t.plan(1)
 
-	let changeSpy
-
 	const FakeForm = class extends React.Component {
 		constructor() {
 			super()
 
 			this.handleFormValueChange = this.handleFormValueChange.bind(this)
-
-			changeSpy = sinon.spy(this.handleFormValueChange)
 		}
 
 		handleFormValueChange(event) {

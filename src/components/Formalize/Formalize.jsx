@@ -39,16 +39,18 @@ let Formalize = Content => class extends Component {
     }
 
     handleFormValueChange(property, value) {
-		const data = {
-			...this.state.data,
-			[property]: value
-		}
+		return new Promise(resolve => {
+			const data = {
+				...this.state.data,
+				[property]: value
+			}
 
-		if (this.props.clearValidationStatus) {
-			this.props.clearValidationStatus()
-		}
+			if (this.props.clearValidationStatus) {
+				this.props.clearValidationStatus()
+			}
 
-        this.setState({data})
+			this.setState({data}, resolve)
+		})
     }
 
     handleFormSubmit(event) {
