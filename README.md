@@ -1,4 +1,4 @@
-# React UI Form
+# React UI Formalize
 
 A set of Higher Order Components to painlessly handle forms with ReactJS. 
 
