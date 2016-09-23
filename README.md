@@ -128,7 +128,7 @@ Using `Transform` will ensure that all the values will be passed to `onSubmit` a
 
 ### Validate
 
-You can see this HoC as an addon to both Formalize and Transform. It handles form validation, and already provides an implementation for the `validate` property so you don't have to write one. Just as transform, it allows you to pass another property called `validationRules` where you can define how to validate your `data` object. You can leave out the keys you don't want validated.
+You can see this HoC as an addon to both `Formalize` and `Transform`. It handles form validation, and already provides an implementation for the `validate` property so you don't have to write one. Just as `Transform`, it allows you to pass another property called `validationRules` where you can define how to validate your `data` object. You can leave out the keys you don't want validated.
 
 ```javascript
 // My Component
@@ -191,6 +191,8 @@ class Parent extends React.Component {
 ```
 
 If the validation process fails, the `onValidationFail` callback property is called (if present). This function will receive a `validationStatus` object as its only parameter, and will contain information about the validation status of each validated element in the form. The Formalized component will also have a `validationStatus` prop always available, to facilitate the handling of validation styling within the component itself. 
+
+Remember: data is validated **after** being transformed, not before!
 
 ## Contributing
 
