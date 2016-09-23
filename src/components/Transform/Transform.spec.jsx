@@ -24,10 +24,10 @@ test('it transforms data as specified', t => {
 
 	const wrapper = mount(
 		<FormalizedTransformedFakeForm 
-		data={{stuff: ''}}
-		onSubmit={handleFormSubmit}
+			data={{stuff: ''}}
+			onSubmit={handleFormSubmit}
 
-		transformRules={transformRules}
+			transformRules={transformRules}
 		/>
 	)
 

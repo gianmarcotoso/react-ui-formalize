@@ -48,11 +48,11 @@ let Validate = Validatable => class extends Component {
 		})
 
 		const validationHasPassed = validationStatusArray
-		.filter(r => r.validated === false)
-		.length === 0
+			.filter(r => r.validated === false)
+			.length === 0
 
 		if (!validationHasPassed && this.props.onValidationFail) {
-			this.props.onValidationFail(validationStatusArray)
+			this.props.onValidationFail(validationStatus)
 		}
 
 		return validationHasPassed
@@ -78,7 +78,7 @@ let Validate = Validatable => class extends Component {
 	render() {
 		return (
 			<Validatable ref="inner" {...this.props} validationStatus={this.state.validationStatus} validate={this.validate} clearValidationStatus={this.clearValidationStatus}/>
-			)
+		)
 	}
 }
 

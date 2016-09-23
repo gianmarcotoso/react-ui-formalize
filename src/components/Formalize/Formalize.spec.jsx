@@ -19,8 +19,8 @@ test('it does its thing with a simple form', t => {
 
 	const wrapper = mount(
 		<FormalizedFakeForm 
-		data={{stuff: ''}}
-		onSubmit={handleFormSubmit}
+			data={{stuff: ''}}
+			onSubmit={handleFormSubmit}
 		/>
 	)
 
@@ -43,9 +43,9 @@ test('it does its thing with a simple form calling the validator', t => {
 
 	const wrapper = mount(
 		<FormalizedFakeForm 
-		data={{stuff: ''}}
-		onSubmit={handleFormSubmit}
-		validate={spy}
+			data={{stuff: ''}}
+			onSubmit={handleFormSubmit}
+			validate={spy}
 		/>
 	)
 
@@ -67,9 +67,9 @@ test('it does its thing with a simple form calling the transformer', t => {
 
 	const wrapper = mount(
 		<FormalizedFakeForm 
-		data={{stuff: ''}}
-		onSubmit={handleFormSubmit}
-		transform={spy}
+			data={{stuff: ''}}
+			onSubmit={handleFormSubmit}
+			transform={spy}
 		/>
 	)
 

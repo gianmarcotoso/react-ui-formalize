@@ -4,9 +4,13 @@ A set of Higher Order Components to painlessly handle forms with ReactJS.
 
 ## Tell me more
 
-This repository contains a set of 3 HoCs that will save you a lot of time and pain when handling forms with ReactJS. It does _not_ use anything other than ReactJS, so you don't need to interface it with your store(s) or whatever you do to handle your application state. Just put in your form, get your data out, be happy! Now, for what's in the box...
+This repository contains a set of 3 HoCs that will save you a lot of time and pain when handling forms with ReactJS. It does _not_ use anything other than ReactJS, so you don't need to interface it with your store(s) or whatever you do to handle your application state. Just put in your form, get your data out, be happy! 
 
-## Formalize
+## The components
+
+Let's find out what's in the box...
+
+### Formalize
 
 The main component of this package is `Formalize`. This HoC wraps *any* component and converts it into a form, keeping track of the input values into its internal state. It can handle pretty much anything you throw at it, provided you follow one simple rule: when something in the form is supposed to change, you need to call the `onFormValueChange` method passed to your component as a prop by the HoC. Let's see an example of how this thing is supposed to work:
 
@@ -79,3 +83,119 @@ Here is a list of all the props you can pass to a component wrapped with `Formal
 - `onReset`: Receives a function which is called with no parameters whenever the form resets;
 - `transform`: Receives a function which is called right before `onSubmit` and has data as its only parameter. If defined, it **must** return an object, and can be used to transform the form data before handing it to onSubmit. 
 - `validate`: Receives a function which is called right before `onSubmit`, but **after** `transform`. It gets the (transformed) data as its only parameter and, if defined, must return either `true` or `false` to tell `Formalize` if the data has passed validation. If it returns `false`, `onSubmit` is not called.
+
+### Transform
+
+The transform HoC can be used to provide Formalized with a default implementation of the `transform` property. If you wrap the Formalized component with transform, you can pass a `transformRules` property to it, where you define how each key should be trasformed (you can omit those you want to leave untouched):
+
+```javascript
+// My Component
+import React from 'react'
+import { Formalize, Transform } from 'react-ui-form'
+
+class MyComponent extends React.Component {
+	/* ... */
+}
+
+export default Transform(Formalize(MyComponent))
+
+// ... and in the parent:
+class Parent extends React.Component {
+	/* ... */
+	handleSomeoneFormSubmit(data) {
+		console.log('Yay, the data has been updated!', data)
+	}
+
+	render() {
+		return (
+			<div>
+				/* ... */
+				<MyComponent 
+					data={this.props.someone}
+					onSubmit={this.handleSomeoneFormSubmit.bind(this)}
+
+					transformRules={{
+						age: v => parseInt(v)
+					}}
+				/>
+			</div>
+		)
+	}
+}
+```
+
+Using `Transform` will ensure that all the values will be passed to `onSubmit` after being transformed, so you can use it if you need to typecase values of do other pre-submit (and pre-validation!) operations on them
+
+### Validate
+
+You can see this HoC as an addon to both Formalize and Transform. It handles form validation, and already provides an implementation for the `validate` property so you don't have to write one. Just as transform, it allows you to pass another property called `validationRules` where you can define how to validate your `data` object. You can leave out the keys you don't want validated.
+
+```javascript
+// My Component
+import React from 'react'
+import { Formalize, Transform, Validate } from 'react-ui-form'
+
+class MyComponent extends React.Component {
+	/* ... */
+	render() {
+		return (
+			<div>
+				<div>
+					<label>Name: </label>
+					<input type="text" name="name" onChange={this.handleFormValueChange.bind(this)} value={this.props.data.name} />
+					{this.props.validationStatus.name === false ? (
+						<small class="error">Your name must be at least 3 characters long</small>
+					) : null}
+				</div>
+				/* ... */
+			</div>
+	   )
+	}
+}
+
+export default Validate(Transform(Formalize(MyComponent)))
+
+// ... and in the parent:
+class Parent extends React.Component {
+	/* ... */
+	handleSomeoneFormSubmit(data) {
+		console.log('Yay, the data has been updated!', data)
+	}
+
+	handleValidationFail(validationStatus) {
+		console.log('Something went awry...', validationStatus)
+	}
+
+	render() {
+		return (
+			<div>
+				/* ... */
+				<MyComponent 
+					data={this.props.someone}
+					onSubmit={this.handleSomeoneFormSubmit.bind(this)}
+
+					transformRules={{
+						age: v => parseInt(v)
+					}}
+
+					onValidationFail={this.handleValidationFail.bind(this)}
+					validationRules={{
+						name: v => v && v.length > 3,
+						age: v => v < 150 && v >= 0
+					}}
+				/>
+			</div>
+		)
+	}
+}
+```
+
+If the validation process fails, the `onValidationFail` callback property is called (if present). This function will receive a `validationStatus` object as its only parameter, and will contain information about the validation status of each validated element in the form. The Formalized component will also have a `validationStatus` prop always available, to facilitate the handling of validation styling within the component itself. 
+
+## Contributing
+
+Feel free to open issues or make pull requests if something is wrong or you feel you can make an improvement!
+
+## License
+
+MIT

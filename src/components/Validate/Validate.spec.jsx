@@ -35,12 +35,12 @@ test('it validates data as specified', t => {
 
 	const wrapper = mount(
 		<FormalizedTransformedValidatedFakeForm 
-		data={{stuff: ''}}
-		onSubmit={submitSpy}
-		onValidationFail={validationFailSpy}
+			data={{stuff: ''}}
+			onSubmit={submitSpy}
+			onValidationFail={validationFailSpy}
 
-		transformRules={transformRules}
-		validationRules={validationRules}
+			transformRules={transformRules}
+			validationRules={validationRules}
 		/>
 	)
 

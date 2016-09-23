@@ -91,16 +91,16 @@ let Formalize = Content => class extends Component {
 		if (this.props.wrap) {
 			return (
 				<form onSubmit={this.handleFormSubmit} onReset={this.handleFormReset} className={this.props.formClassName} ref="form">
-				<Content {...this.props} onFormValueChange={this.handleFormValueChange} data={this.state.data} />
+					<Content {...this.props} onFormValueChange={this.handleFormValueChange} data={this.state.data} />
 				</form>
-				)
+			)
 		}
 
 		return (
 			<div className={this.props.formClassName}>
-			<Content {...this.props} onFormValueChange={this.handleFormValueChange} data={this.state.data} />
+				<Content {...this.props} onFormValueChange={this.handleFormValueChange} data={this.state.data} />
 			</div>
-			)
+		)
 	}
 }
 
