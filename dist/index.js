@@ -119,7 +119,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+		value: true
 	});
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -145,118 +145,118 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var Formalize = function Formalize(Content) {
-	    var _class, _temp;
+		var _class, _temp;
 
-	    return _temp = _class = function (_Component) {
-	        _inherits(_class, _Component);
+		return _temp = _class = function (_Component) {
+			_inherits(_class, _Component);
 
-	        function _class(props) {
-	            _classCallCheck(this, _class);
+			function _class(props) {
+				_classCallCheck(this, _class);
 
-	            var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, props));
+				var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, props));
 
-	            _this.state = {
-	                data: {}
-	            };
+				_this.state = {
+					data: {}
+				};
 
-	            _this.handleFormValueChange = _this.handleFormValueChange.bind(_this);
-	            _this.handleFormSubmit = _this.handleFormSubmit.bind(_this);
-	            _this.handleFormReset = _this.handleFormReset.bind(_this);
-	            return _this;
-	        }
+				_this.handleFormValueChange = _this.handleFormValueChange.bind(_this);
+				_this.handleFormSubmit = _this.handleFormSubmit.bind(_this);
+				_this.handleFormReset = _this.handleFormReset.bind(_this);
+				return _this;
+			}
 
-	        _createClass(_class, [{
-	            key: 'componentDidMount',
-	            value: function componentDidMount() {
-	                this.setState({ data: this.props.data || {} });
-	            }
-	        }, {
-	            key: 'componentWillReceiveProps',
-	            value: function componentWillReceiveProps(props) {
-	                if (!(0, _lodash2.default)(props.data, this.props.data)) {
-	                    this.setState({ data: props.data || {} });
+			_createClass(_class, [{
+				key: 'componentDidMount',
+				value: function componentDidMount() {
+					this.setState({ data: this.props.data || {} });
+				}
+			}, {
+				key: 'componentWillReceiveProps',
+				value: function componentWillReceiveProps(props) {
+					if (!(0, _lodash2.default)(props.data, this.props.data)) {
+						this.setState({ data: props.data || {} });
 
-	                    if (this.props.clearValidationStatus) {
-	                        this.props.clearValidationStatus();
-	                    }
-	                }
-	            }
-	        }, {
-	            key: 'handleFormValueChange',
-	            value: function handleFormValueChange(property, value) {
-	                var _this2 = this;
+						if (this.props.clearValidationStatus) {
+							this.props.clearValidationStatus();
+						}
+					}
+				}
+			}, {
+				key: 'handleFormValueChange',
+				value: function handleFormValueChange(property, value) {
+					var _this2 = this;
 
-	                return new Promise(function (resolve) {
-	                    var data = _extends({}, _this2.state.data, _defineProperty({}, property, value));
+					return new Promise(function (resolve) {
+						var data = _extends({}, _this2.state.data, _defineProperty({}, property, value));
 
-	                    if (_this2.props.clearValidationStatus) {
-	                        _this2.props.clearValidationStatus();
-	                    }
+						if (_this2.props.clearValidationStatus) {
+							_this2.props.clearValidationStatus();
+						}
 
-	                    _this2.setState({ data: data }, function () {
-	                        if (_this2.props.onChange) {
-	                            _this2.props.onChange(property, value);
-	                        }
+						_this2.setState({ data: data }, function () {
+							if (_this2.props.onChange) {
+								_this2.props.onChange(property, value);
+							}
 
-	                        resolve(data);
-	                    });
-	                });
-	            }
-	        }, {
-	            key: 'handleFormSubmit',
-	            value: function handleFormSubmit(event) {
-	                event.preventDefault();
+							resolve(data);
+						});
+					});
+				}
+			}, {
+				key: 'handleFormSubmit',
+				value: function handleFormSubmit(event) {
+					event.preventDefault();
 
-	                var data = this.props.transform ? this.props.transform(this.state.data) : this.state.data;
+					var data = this.props.transform ? this.props.transform(this.state.data) : this.state.data;
 
-	                if (this.props.validate && !this.props.validate(data)) {
-	                    return;
-	                }
+					if (this.props.validate && !this.props.validate(data)) {
+						return;
+					}
 
-	                if (this.props.onSubmit) {
-	                    this.props.onSubmit(data);
-	                }
-	            }
-	        }, {
-	            key: 'handleFormReset',
-	            value: function handleFormReset(event) {
-	                if (this.props.onReset) {
-	                    this.props.onReset(event);
-	                }
-	            }
-	        }, {
-	            key: 'render',
-	            value: function render() {
-	                if (this.props.wrap) {
-	                    return _react2.default.createElement(
-	                        'form',
-	                        { onSubmit: this.handleFormSubmit, onReset: this.handleFormReset, className: this.props.formClassName, ref: 'form' },
-	                        _react2.default.createElement(Content, _extends({}, this.props, { onFormValueChange: this.handleFormValueChange, data: this.state.data }))
-	                    );
-	                }
+					if (this.props.onSubmit) {
+						this.props.onSubmit(data);
+					}
+				}
+			}, {
+				key: 'handleFormReset',
+				value: function handleFormReset(event) {
+					if (this.props.onReset) {
+						this.props.onReset(event);
+					}
+				}
+			}, {
+				key: 'render',
+				value: function render() {
+					if (this.props.wrap) {
+						return _react2.default.createElement(
+							'form',
+							{ onSubmit: this.handleFormSubmit, onReset: this.handleFormReset, className: this.props.formClassName, ref: 'form' },
+							_react2.default.createElement(Content, _extends({}, this.props, { onFormValueChange: this.handleFormValueChange, data: this.state.data }))
+						);
+					}
 
-	                return _react2.default.createElement(
-	                    'div',
-	                    { className: this.props.formClassName },
-	                    _react2.default.createElement(Content, _extends({}, this.props, { onFormValueChange: this.handleFormValueChange, data: this.state.data }))
-	                );
-	            }
-	        }]);
+					return _react2.default.createElement(
+						'div',
+						{ className: this.props.formClassName },
+						_react2.default.createElement(Content, _extends({}, this.props, { onFormValueChange: this.handleFormValueChange, data: this.state.data }))
+					);
+				}
+			}]);
 
-	        return _class;
-	    }(_react.Component), _class.defaultProps = {
-	        wrap: true
-	    }, _class.propTypes = {
-	        data: _react2.default.PropTypes.object.isRequired,
-	        wrap: _react2.default.PropTypes.bool,
+			return _class;
+		}(_react.Component), _class.defaultProps = {
+			wrap: true
+		}, _class.propTypes = {
+			data: _react2.default.PropTypes.object.isRequired,
+			wrap: _react2.default.PropTypes.bool,
 
-	        onSubmit: _react2.default.PropTypes.func,
-	        onChange: _react2.default.PropTypes.func,
-	        onReset: _react2.default.PropTypes.func,
+			onSubmit: _react2.default.PropTypes.func,
+			onChange: _react2.default.PropTypes.func,
+			onReset: _react2.default.PropTypes.func,
 
-	        validate: _react2.default.PropTypes.func,
-	        transform: _react2.default.PropTypes.func
-	    }, _temp;
+			validate: _react2.default.PropTypes.func,
+			transform: _react2.default.PropTypes.func
+		}, _temp;
 	};
 
 	exports.default = Formalize;
@@ -2065,7 +2065,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+		value: true
 	});
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -2085,105 +2085,105 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var ValidationStatusItem = function ValidationStatusItem(key, validated) {
-	    return { key: key, validated: validated };
+		return { key: key, validated: validated };
 	};
 
 	var Validate = function Validate(Validatable) {
-	    var _class, _temp;
+		var _class, _temp;
 
-	    return _temp = _class = function (_Component) {
-	        _inherits(_class, _Component);
+		return _temp = _class = function (_Component) {
+			_inherits(_class, _Component);
 
-	        function _class(props) {
-	            _classCallCheck(this, _class);
+			function _class(props) {
+				_classCallCheck(this, _class);
 
-	            var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, props));
+				var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, props));
 
-	            _this.state = {
-	                validationStatus: {}
-	            };
+				_this.state = {
+					validationStatus: {}
+				};
 
-	            _this.validate = _this.validate.bind(_this);
-	            _this.clearValidationStatus = _this.clearValidationStatus.bind(_this);
-	            return _this;
-	        }
+				_this.validate = _this.validate.bind(_this);
+				_this.clearValidationStatus = _this.clearValidationStatus.bind(_this);
+				return _this;
+			}
 
-	        _createClass(_class, [{
-	            key: 'componentDidMount',
-	            value: function componentDidMount() {
-	                var _this2 = this;
+			_createClass(_class, [{
+				key: 'componentDidMount',
+				value: function componentDidMount() {
+					var _this2 = this;
 
-	                this.clearValidationStatus();
+					this.clearValidationStatus();
 
-	                this.getData = function () {
-	                    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	                        args[_key] = arguments[_key];
-	                    }
+					this.getData = function () {
+						for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+							args[_key] = arguments[_key];
+						}
 
-	                    return _this2.refs.inner.getData(args);
-	                };
-	            }
-	        }, {
-	            key: 'validate',
-	            value: function validate(data) {
-	                var _this3 = this;
+						return _this2.refs.inner.getData(args);
+					};
+				}
+			}, {
+				key: 'validate',
+				value: function validate(data) {
+					var _this3 = this;
 
-	                var validationStatusArray = Object.keys(this.props.validationRules).map(function (key) {
-	                    var validationFunction = _this3.props.validationRules[key];
+					var validationStatusArray = Object.keys(this.props.validationRules).map(function (key) {
+						var validationFunction = _this3.props.validationRules[key];
 
-	                    return ValidationStatusItem(key, !!validationFunction(data[key], data));
-	                });
+						return ValidationStatusItem(key, !!validationFunction(data[key], data));
+					});
 
-	                var validationStatus = validationStatusArray.reduce(function (r, i) {
-	                    r[i.key] = i.validated;
+					var validationStatus = validationStatusArray.reduce(function (r, i) {
+						r[i.key] = i.validated;
 
-	                    return r;
-	                }, {});
+						return r;
+					}, {});
 
-	                this.setState({
-	                    validationStatus: validationStatus
-	                });
+					this.setState({
+						validationStatus: validationStatus
+					});
 
-	                var validationHasPassed = validationStatusArray.filter(function (r) {
-	                    return r.validated === false;
-	                }).length === 0;
+					var validationHasPassed = validationStatusArray.filter(function (r) {
+						return r.validated === false;
+					}).length === 0;
 
-	                if (!validationHasPassed && this.props.onValidationFail) {
-	                    this.props.onValidationFail(validationStatusArray);
-	                }
+					if (!validationHasPassed && this.props.onValidationFail) {
+						this.props.onValidationFail(validationStatus);
+					}
 
-	                return validationHasPassed;
-	            }
-	        }, {
-	            key: 'clearValidationStatus',
-	            value: function clearValidationStatus() {
-	                if (!this.props.validationRules) {
-	                    console.warn('Validation rules are not set!');
-	                    return;
-	                }
+					return validationHasPassed;
+				}
+			}, {
+				key: 'clearValidationStatus',
+				value: function clearValidationStatus() {
+					if (!this.props.validationRules) {
+						console.warn('Validation rules are not set!');
+						return;
+					}
 
-	                this.setState({
-	                    validationStatus: Object.keys(this.props.validationRules).map(function (key) {
-	                        return ValidationStatusItem(key, true);
-	                    }).reduce(function (r, i) {
-	                        r[i.key] = i.validated;
+					this.setState({
+						validationStatus: Object.keys(this.props.validationRules).map(function (key) {
+							return ValidationStatusItem(key, true);
+						}).reduce(function (r, i) {
+							r[i.key] = i.validated;
 
-	                        return r;
-	                    }, {})
-	                });
-	            }
-	        }, {
-	            key: 'render',
-	            value: function render() {
-	                return _react2.default.createElement(Validatable, _extends({ ref: 'inner' }, this.props, { validationStatus: this.state.validationStatus, validate: this.validate, clearValidationStatus: this.clearValidationStatus }));
-	            }
-	        }]);
+							return r;
+						}, {})
+					});
+				}
+			}, {
+				key: 'render',
+				value: function render() {
+					return _react2.default.createElement(Validatable, _extends({ ref: 'inner' }, this.props, { validationStatus: this.state.validationStatus, validate: this.validate, clearValidationStatus: this.clearValidationStatus }));
+				}
+			}]);
 
-	        return _class;
-	    }(_react.Component), _class.propTypes = {
-	        validationRules: _react2.default.PropTypes.object.isRequired,
-	        onValidationFail: _react2.default.PropTypes.func
-	    }, _temp;
+			return _class;
+		}(_react.Component), _class.propTypes = {
+			validationRules: _react2.default.PropTypes.object.isRequired,
+			onValidationFail: _react2.default.PropTypes.func
+		}, _temp;
 	};
 
 	exports.default = Validate;
@@ -2213,41 +2213,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+		value: true
 	});
 	var getFormData = function getFormData(data) {
-	    var formData = new FormData();
+		var formData = new FormData();
 
-	    Object.keys(data).forEach(function (p) {
-	        var value = data[p];
-	        if (value === null || typeof value === 'undefined') {
-	            return;
-	        }
+		Object.keys(data).forEach(function (p) {
+			var value = data[p];
+			if (value === null || typeof value === 'undefined') {
+				return;
+			}
 
-	        if (value && value.constructor === FileList) {
-	            if (value.length === 1) {
-	                formData.append(p, value.item(0));
+			if (value && value.constructor === FileList) {
+				if (value.length === 1) {
+					formData.append(p, value.item(0));
 
-	                return;
-	            }
+					return;
+				}
 
-	            for (var i = 0; i < value.length; i++) {
-	                formData.append(p + '_' + i, value.item(i));
-	            }
+				for (var i = 0; i < value.length; i++) {
+					formData.append(p + '_' + i, value.item(i));
+				}
 
-	            return;
-	        }
+				return;
+			}
 
-	        if (value && (value.constructor === Object || Array.isArray(value))) {
-	            formData.append(p, JSON.stringify(value));
+			if (value && (value.constructor === Object || Array.isArray(value))) {
+				formData.append(p, JSON.stringify(value));
 
-	            return;
-	        }
+				return;
+			}
 
-	        formData.append(p, value);
-	    });
+			formData.append(p, value);
+		});
 
-	    return formData;
+		return formData;
 	};
 
 	exports.default = getFormData;
