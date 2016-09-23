@@ -21,7 +21,7 @@ const getFormData = (data) => {
             return
         }
 
-        if (value && (value.constructor === 'object' || Array.isArray(value))) {
+        if (value && (value.constructor === Object || Array.isArray(value))) {
             formData.append(p, JSON.stringify(value))
 
             return

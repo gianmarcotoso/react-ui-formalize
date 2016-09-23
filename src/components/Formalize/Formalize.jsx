@@ -9,7 +9,15 @@ let Formalize = Content => class extends Component {
     }
 
 	static propTypes = {
-		wrap: React.PropTypes.bool
+        data: React.PropTypes.object.isRequired,
+		wrap: React.PropTypes.bool,
+
+        onSubmit: React.PropTypes.func,
+        onChange: React.PropTypes.func,
+        onReset: React.PropTypes.func,
+        
+		validate: React.PropTypes.func,
+		transform: React.PropTypes.func
 	}
 
     constructor(props) {
@@ -49,19 +57,27 @@ let Formalize = Content => class extends Component {
 				this.props.clearValidationStatus()
 			}
 
-			this.setState({data}, resolve)
+			this.setState({data}, () => {
+                if (this.props.onChange) {
+                    this.props.onChange(property, value)
+                }
+
+                resolve(data)
+            })
 		})
     }
 
     handleFormSubmit(event) {
         event.preventDefault()
 
-        if (this.props.validate && !this.props.validate(this.state.data)) {
+		const data = this.props.transform ? this.props.transform(this.state.data) : this.state.data
+
+        if (this.props.validate && !this.props.validate(data)) {
             return
         }
 
         if (this.props.onSubmit) {
-            this.props.onSubmit(this.state.data)
+            this.props.onSubmit(data)
         }
     }
 

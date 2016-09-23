@@ -4,48 +4,13 @@ import { mount } from 'enzyme'
 import React from 'react'
 import Formalize from './Formalize'
 
-/* SETUP JSDOM */
-var jsdom = require('jsdom').jsdom;
+import '../../tests/setup'
+import FakeForm from '../../tests/FakeForm.jsx'
 
-var exposedProperties = ['window', 'navigator', 'document'];
+const FormalizedFakeForm = Formalize(FakeForm)
 
-global.document = jsdom('');
-global.window = document.defaultView;
-Object.keys(document.defaultView).forEach((property) => {
-  if (typeof global[property] === 'undefined') {
-    exposedProperties.push(property);
-    global[property] = document.defaultView[property];
-  }
-});
-global.navigator = {
-  userAgent: 'node.js'
-};
-
-/* THE ACTUAL TESTS */
 test('it does its thing with a simple form', t => {
 	t.plan(1)
-
-	const FakeForm = class extends React.Component {
-		constructor() {
-			super()
-
-			this.handleFormValueChange = this.handleFormValueChange.bind(this)
-		}
-
-		handleFormValueChange(event) {
-			this.props.onFormValueChange(event.target.name, event.target.value)
-		}
-
-		render() {
-			return (
-				<div>
-					<input type="text" name="stuff" value={this.props.data.value || ''} onChange={this.handleFormValueChange} />
-				</div>
-			)
-		}
-	}
-
-	const FormalizedFakeForm = Formalize(FakeForm)
 
 	const handleFormSubmit = data => {
 		t.equals(data.stuff, 'hello')
@@ -54,7 +19,7 @@ test('it does its thing with a simple form', t => {
 
 	const wrapper = mount(
 		<FormalizedFakeForm 
-			data={{value: ''}}
+			data={{stuff: ''}}
 			onSubmit={handleFormSubmit}
 		/>
 	)
@@ -64,3 +29,50 @@ test('it does its thing with a simple form', t => {
 	wrapper.find('form').simulate('submit')
 })
 
+test('it does its thing with a simple form calling the validator', t => {
+	t.plan(2)
+
+	const handleFormSubmit = data => {
+		t.equals(data.stuff, 'hello')
+		t.assert(spy.calledOnce)
+	}
+
+	const validator = (data) => true
+	
+	const spy = sinon.spy(validator)
+
+	const wrapper = mount(
+		<FormalizedFakeForm 
+			data={{stuff: ''}}
+			onSubmit={handleFormSubmit}
+			validate={spy}
+		/>
+	)
+
+	wrapper.find('input').simulate('change', {target: {name: 'stuff', value: 'hello'}})
+	wrapper.find('form').simulate('submit')
+})
+
+test('it does its thing with a simple form calling the transformer', t => {
+	t.plan(2)
+
+	const handleFormSubmit = data => {
+		t.equals(data.stuff, 'hello')
+		t.assert(spy.calledOnce)
+	}
+
+	const transformer = (data) => data
+	
+	const spy = sinon.spy(transformer)
+
+	const wrapper = mount(
+		<FormalizedFakeForm 
+			data={{stuff: ''}}
+			onSubmit={handleFormSubmit}
+			transform={spy}
+		/>
+	)
+
+	wrapper.find('input').simulate('change', {target: {name: 'stuff', value: 'hello'}})
+	wrapper.find('form').simulate('submit')
+})

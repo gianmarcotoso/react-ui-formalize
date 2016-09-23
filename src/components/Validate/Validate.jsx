@@ -5,7 +5,8 @@ let ValidationStatusItem = (key, validated) => ({key, validated})
 
 let Validate = Validatable => class extends Component {
 	static propTypes = {
-		validationRules: React.PropTypes.object.isRequired
+		validationRules: React.PropTypes.object.isRequired,
+		onValidationFail: React.PropTypes.func
 	}
 
     constructor(props) {
@@ -46,9 +47,15 @@ let Validate = Validatable => class extends Component {
             validationStatus
         })
 
-        return validationStatusArray
+        const validationHasPassed = validationStatusArray
             .filter(r => r.validated === false)
-            .length === 0
+			.length === 0
+
+		if (!validationHasPassed && this.props.onValidationFail) {
+			this.props.onValidationFail(validationStatusArray)
+		}
+
+		return validationHasPassed
     }
 
     clearValidationStatus() {

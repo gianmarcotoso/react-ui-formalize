@@ -13,6 +13,14 @@ let Transform = WrappedComponent => class extends Component {
 	}
 
 	handleTransform(data) {
+		if (!data || data.constructor !== Object) {
+			return data
+		}
+
+		if (!this.props.transformRules || this.props.transformRules.constructor !== Object) {
+			return data
+		}
+
 		const transformedData = Object.keys(data).reduce( (result, property) => {
 			if (data.hasOwnProperty(property) && this.props.transformRules.hasOwnProperty(property)) {
 				const transformFunction = this.props.transformRules[property]
