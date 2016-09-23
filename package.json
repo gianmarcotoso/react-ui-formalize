@@ -12,6 +12,7 @@
     "forms",
     "validation"
   ],
+  "repository": "https://github.com/gianmarcotoso/react-ui-formalize",
   "author": "Gian Marco Toso <info@gianmarcotoso.com>",
   "license": "MIT",
   "devDependencies": {
