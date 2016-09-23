@@ -36,11 +36,11 @@ let Transform = WrappedComponent => class extends Component {
 		return transformedData
 	}
 
-    render() {
-        return (
+	render() {
+		return (
 			<WrappedComponent ref="inner" {...this.props} transform={this.handleTransform} />
-        )
-    }
+			)
+	}
 }
 
 export default Transform

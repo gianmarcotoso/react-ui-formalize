@@ -6,15 +6,15 @@ import Formalize from '../Formalize'
 import Transform from '../Transform'
 import Validate from './Validate'
 
-import '../../tests/setup'
-import FakeForm from '../../tests/FakeForm.jsx'
+import '../../../tests/setup'
+import FakeForm from '../../../tests/FakeForm.jsx'
 
 const FormalizedTransformedValidatedFakeForm = Validate(Transform(Formalize(FakeForm)))
 
 test('it validates data as specified', t => {
- 	t.plan(2)
- 
- 	const handleFormSubmit = data => {
+	t.plan(2)
+
+	const handleFormSubmit = data => {
 		// send to server or whatever
 	}
 
@@ -24,29 +24,29 @@ test('it validates data as specified', t => {
 
 	const submitSpy = sinon.spy(handleFormSubmit)
 	const validationFailSpy = sinon.spy(handleValidationFail)
- 
- 	const transformRules = {
+
+	const transformRules = {
 		stuff: v => parseInt(v)
 	}
 
 	const validationRules = {
 		stuff: v=> v > 40
 	}
- 
- 	const wrapper = mount(
- 		<FormalizedTransformedValidatedFakeForm 
- 			data={{stuff: ''}}
- 			onSubmit={submitSpy}
-			onValidationFail={validationFailSpy}
- 
-			transformRules={transformRules}
-			validationRules={validationRules}
- 		/>
- 	)
+
+	const wrapper = mount(
+		<FormalizedTransformedValidatedFakeForm 
+		data={{stuff: ''}}
+		onSubmit={submitSpy}
+		onValidationFail={validationFailSpy}
+
+		transformRules={transformRules}
+		validationRules={validationRules}
+		/>
+	)
 
 	
- 	wrapper.find('input').simulate('change', {target: {name: 'stuff', value: 40}})
- 	wrapper.find('form').simulate('submit')
+	wrapper.find('input').simulate('change', {target: {name: 'stuff', value: 40}})
+	wrapper.find('form').simulate('submit')
 
 	t.assert(validationFailSpy.calledOnce)
 	

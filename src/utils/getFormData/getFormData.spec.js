@@ -2,22 +2,7 @@ import test from 'tape'
 import sinon from 'sinon'
 import getFormData from './getFormData'
 
-/* SETUP JSDOM */
-var jsdom = require('jsdom').jsdom;
-
-var exposedProperties = ['window', 'navigator', 'document'];
-
-global.document = jsdom('');
-global.window = document.defaultView;
-Object.keys(document.defaultView).forEach((property) => {
-  if (typeof global[property] === 'undefined') {
-    exposedProperties.push(property);
-    global[property] = document.defaultView[property];
-  }
-});
-global.navigator = {
-  userAgent: 'node.js'
-};
+import '../../../tests/setup'
 
 global.FormData = window.FormData
 global.FileList = window.FileList
@@ -51,8 +36,8 @@ test('it serializes an object with nested arrays/objects (as stringified JSON)',
 	const data = {
 		name: 'Jimmy',
 		skills: [
-			'code',
-			'guitar'
+		'code',
+		'guitar'
 		],
 		preferences: {
 			color: 'blue',
