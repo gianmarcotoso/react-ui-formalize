@@ -160,6 +160,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				};
 
 				_this.handleFormValueChange = _this.handleFormValueChange.bind(_this);
+				_this.handleMultipleFormValuesChange = _this.handleMultipleFormValuesChange.bind(_this);
 				_this.handleFormSubmit = _this.handleFormSubmit.bind(_this);
 				_this.handleFormReset = _this.handleFormReset.bind(_this);
 				return _this;
@@ -182,12 +183,12 @@ return /******/ (function(modules) { // webpackBootstrap
 					}
 				}
 			}, {
-				key: 'handleFormValueChange',
-				value: function handleFormValueChange(property, value) {
+				key: 'handleMultipleFormValuesChange',
+				value: function handleMultipleFormValuesChange(values) {
 					var _this2 = this;
 
 					return new Promise(function (resolve) {
-						var data = _extends({}, _this2.state.data, _defineProperty({}, property, value));
+						var data = _extends({}, _this2.state.data, values);
 
 						if (_this2.props.clearValidationStatus) {
 							_this2.props.clearValidationStatus();
@@ -195,7 +196,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 						_this2.setState({ data: data }, function () {
 							if (_this2.props.onChange) {
-								_this2.props.onChange(property, value);
+								_this2.props.onChange(Object.keys(values), Object.keys(values).map(function (k) {
+									return values[k];
+								}), _this2.state.data);
+							}
+
+							resolve(data);
+						});
+					});
+				}
+			}, {
+				key: 'handleFormValueChange',
+				value: function handleFormValueChange(property, value) {
+					var _this3 = this;
+
+					return new Promise(function (resolve) {
+						var data = _extends({}, _this3.state.data, _defineProperty({}, property, value));
+
+						if (_this3.props.clearValidationStatus) {
+							_this3.props.clearValidationStatus();
+						}
+
+						_this3.setState({ data: data }, function () {
+							if (_this3.props.onChange) {
+								_this3.props.onChange(property, value, _this3.state.data);
 							}
 
 							resolve(data);
@@ -231,14 +255,14 @@ return /******/ (function(modules) { // webpackBootstrap
 						return _react2.default.createElement(
 							'form',
 							{ onSubmit: this.handleFormSubmit, onReset: this.handleFormReset, className: this.props.formClassName, ref: 'form' },
-							_react2.default.createElement(Content, _extends({}, this.props, { onFormValueChange: this.handleFormValueChange, data: this.state.data }))
+							_react2.default.createElement(Content, _extends({}, this.props, { onMultipleFormValuesChange: this.handleMultipleFormValuesChange, onFormValueChange: this.handleFormValueChange, data: this.state.data }))
 						);
 					}
 
 					return _react2.default.createElement(
 						'div',
 						{ className: this.props.formClassName },
-						_react2.default.createElement(Content, _extends({}, this.props, { onFormValueChange: this.handleFormValueChange, data: this.state.data }))
+						_react2.default.createElement(Content, _extends({}, this.props, { onMultipleFormValuesChange: this.handleMultipleFormValuesChange, onFormValueChange: this.handleFormValueChange, data: this.state.data }))
 					);
 				}
 			}]);
