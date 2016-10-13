@@ -28,6 +28,7 @@ let Formalize = Content => class extends Component {
 		}
 
 		this.handleFormValueChange = this.handleFormValueChange.bind(this)
+		this.handleMultipleFormValuesChange = this.handleMultipleFormValuesChange.bind(this)
 		this.handleFormSubmit = this.handleFormSubmit.bind(this)
 		this.handleFormReset = this.handleFormReset.bind(this)
 	}
@@ -46,6 +47,27 @@ let Formalize = Content => class extends Component {
 		}
 	}
 
+	handleMultipleFormValuesChange(values) {
+		return new Promise(resolve => {
+			const data = {
+				...this.state.data,
+				...values
+			}
+
+			if (this.props.clearValidationStatus) {
+				this.props.clearValidationStatus()
+			}
+
+			this.setState({data}, () => {
+				if (this.props.onChange) {
+					this.props.onChange(Object.keys(values), Object.keys(values).map(k => values[k]), this.state.data)
+				}
+
+				resolve(data)
+			})
+		})
+	}
+
 	handleFormValueChange(property, value) {
 		return new Promise(resolve => {
 			const data = {
@@ -59,7 +81,7 @@ let Formalize = Content => class extends Component {
 
 			this.setState({data}, () => {
 				if (this.props.onChange) {
-					this.props.onChange(property, value)
+					this.props.onChange(property, value, this.state.data)
 				}
 
 				resolve(data)
@@ -91,14 +113,14 @@ let Formalize = Content => class extends Component {
 		if (this.props.wrap) {
 			return (
 				<form onSubmit={this.handleFormSubmit} onReset={this.handleFormReset} className={this.props.formClassName} ref="form">
-					<Content {...this.props} onFormValueChange={this.handleFormValueChange} data={this.state.data} />
+					<Content {...this.props} onMultipleFormValuesChange={this.handleMultipleFormValuesChange} onFormValueChange={this.handleFormValueChange} data={this.state.data} />
 				</form>
 			)
 		}
 
 		return (
 			<div className={this.props.formClassName}>
-				<Content {...this.props} onFormValueChange={this.handleFormValueChange} data={this.state.data} />
+				<Content {...this.props} onMultipleFormValuesChange={this.handleMultipleFormValuesChange} onFormValueChange={this.handleFormValueChange} data={this.state.data} />
 			</div>
 		)
 	}

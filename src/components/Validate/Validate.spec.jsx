@@ -45,12 +45,12 @@ test('it validates data as specified', t => {
 	)
 
 	
-	wrapper.find('input').simulate('change', {target: {name: 'stuff', value: 40}})
+	wrapper.find('input').first().simulate('change', {target: {name: 'stuff', value: 40}})
 	wrapper.find('form').simulate('submit')
 
 	t.assert(validationFailSpy.calledOnce)
 	
-	wrapper.find('input').simulate('change', {target: {name: 'stuff', value: '42ingoredstuff'}})
+	wrapper.find('input').first().simulate('change', {target: {name: 'stuff', value: '42ingoredstuff'}})
 	wrapper.find('form').simulate('submit')
 
 	t.assert(submitSpy.calledOnce)

@@ -79,10 +79,16 @@ Here is a list of all the props you can pass to a component wrapped with `Formal
 - `data` (**required**): The initial data passed to the form. This can change during the lifetime of your parent component and, if it does, it will propagate to the Formalized component. Don't pass an empty object defined inline, it will make you cry;
 - `wrap`: Defaults to `true`. Tells Formalize whether to wrap your component in a `form` element or not;
 - `onSubmit`: Receives a function which is called with the current `data` as its only paramter when the form is submitted. Use this to dispatch actions or do your thing with the user's input;
-- `onChange`: Receives a function which is called with the name and the new value of the changed data. Use this if you need to do something on the parent when a value changes;
+- `onChange`: Receives a function which is called with the name and the new value of the changed data, as well as the complete form data as its third parameter. Use this if you need to do something on the parent when a value changes; this function is also called after `onMultipleFormValuesChange` and receives an array of properties and an array of values as its first two parameters, while the third remains unchanged;
 - `onReset`: Receives a function which is called with no parameters whenever the form resets;
 - `transform`: Receives a function which is called right before `onSubmit` and has data as its only parameter. If defined, it **must** return an object, and can be used to transform the form data before handing it to onSubmit. 
 - `validate`: Receives a function which is called right before `onSubmit`, but **after** `transform`. It gets the (transformed) data as its only parameter and, if defined, must return either `true` or `false` to tell `Formalize` if the data has passed validation. If it returns `false`, `onSubmit` is not called.
+
+Any wrapped component will receive the following props:
+
+- `onFormValueChange`: a callback that you **must** call whenever a value in your form changes in order to let `Formalize` know about it. Call it from within your event handlers, passing it the `name` of the property that has changed and its new `value`;
+- `onMultipleFormValuesChange`: a callback that behaves as the previous one, but where you can simply pass an object containing the mutations;
+-`data`: the object containing the data saved within `Formalize` internal state. Use it to populate your form's input `value`s. 
 
 ### Transform
 

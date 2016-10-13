@@ -24,7 +24,7 @@ test('it does its thing with a simple form', t => {
 		/>
 	)
 
-	wrapper.find('input').simulate('change', {target: {name: 'stuff', value: 'hello'}})
+	wrapper.find('input').first().simulate('change', {target: {name: 'stuff', value: 'hello'}})
 
 	wrapper.find('form').simulate('submit')
 })
@@ -49,7 +49,7 @@ test('it does its thing with a simple form calling the validator', t => {
 		/>
 	)
 
-	wrapper.find('input').simulate('change', {target: {name: 'stuff', value: 'hello'}})
+	wrapper.find('input').first().simulate('change', {target: {name: 'stuff', value: 'hello'}})
 	wrapper.find('form').simulate('submit')
 })
 
@@ -73,6 +73,51 @@ test('it does its thing with a simple form calling the transformer', t => {
 		/>
 	)
 
-	wrapper.find('input').simulate('change', {target: {name: 'stuff', value: 'hello'}})
+	wrapper.find('input').first().simulate('change', {target: {name: 'stuff', value: 'hello'}})
+	wrapper.find('form').simulate('submit')
+})
+
+test('it calls the onChange event handler when something changes', t => {
+	t.plan(3)
+
+	const handleFormChange = (property, value, data) => {
+		t.equals(property, 'stuff')
+		t.equals(value, 'hello')
+		t.deepEqual(data, {stuff: 'hello'})
+		t.end()
+	}
+
+	const wrapper = mount(
+		<FormalizedFakeForm 
+			data={{stuff: ''}}
+			onChange={handleFormChange}
+		/>
+	)
+
+	wrapper.find('input').first().simulate('change', {target: {name: 'stuff', value: 'hello'}})
+
+	wrapper.find('form').simulate('submit')
+})
+
+test('it calls the onChange event handler when multiple values change', t => {
+	t.plan(3)
+
+	const handleFormChange = (property, value, data) => {
+		t.equals(2, property.length)
+		t.equals(2, value.length)
+		t.deepEqual(data, {stuff: 'hello', 'more': 'stuff'})	
+
+		t.end()
+	}
+
+	const wrapper = mount(
+		<FormalizedFakeForm 
+			data={{stuff: 'hello'}}
+			onChange={handleFormChange}
+		/>
+	)
+
+	wrapper.find('input').last().simulate('change', {target: {name: 'more', value: 'stuff'}})
+
 	wrapper.find('form').simulate('submit')
 })

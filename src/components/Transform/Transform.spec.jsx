@@ -31,7 +31,7 @@ test('it transforms data as specified', t => {
 		/>
 	)
 
-	wrapper.find('input').simulate('change', {target: {name: 'stuff', value: '42ingoredstuff'}})
+	wrapper.find('input').first().simulate('change', {target: {name: 'stuff', value: '42ingoredstuff'}})
 
 	wrapper.find('form').simulate('submit')
 })
