@@ -262,7 +262,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					return _react2.default.createElement(
 						'div',
 						{ className: this.props.formClassName },
-						_react2.default.createElement(Content, _extends({}, this.props, { onMultipleFormValuesChange: this.handleMultipleFormValuesChange, onFormValueChange: this.handleFormValueChange, data: this.state.data }))
+						_react2.default.createElement(Content, _extends({}, this.props, { onFormSubmit: this.handleFormSubmit, onFormReset: this.handleFormReset, onMultipleFormValuesChange: this.handleMultipleFormValuesChange, onFormValueChange: this.handleFormValueChange, data: this.state.data }))
 					);
 				}
 			}]);
