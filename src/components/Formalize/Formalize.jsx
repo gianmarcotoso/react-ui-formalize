@@ -120,7 +120,7 @@ let Formalize = Content => class extends Component {
 
 		return (
 			<div className={this.props.formClassName}>
-				<Content {...this.props} onMultipleFormValuesChange={this.handleMultipleFormValuesChange} onFormValueChange={this.handleFormValueChange} data={this.state.data} />
+				<Content {...this.props} onFormSubmit={this.handleFormSubmit} onFormReset={this.handleFormReset} onMultipleFormValuesChange={this.handleMultipleFormValuesChange} onFormValueChange={this.handleFormValueChange} data={this.state.data} />
 			</div>
 		)
 	}
