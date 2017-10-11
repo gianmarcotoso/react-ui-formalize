@@ -17,7 +17,7 @@ The main component of this package is `Formalize`. This HoC wraps *any* componen
 ```javascript
 // My Component
 import React from 'react'
-import { Formalize } from 'react-ui-form'
+import { Formalize } from 'react-ui-formalize'
 
 class MyComponent extends React.Component {
 	handleFormValueChange(event) {
@@ -97,7 +97,7 @@ The transform HoC can be used to provide Formalized with a default implementatio
 ```javascript
 // My Component
 import React from 'react'
-import { Formalize, Transform } from 'react-ui-form'
+import { Formalize, Transform } from 'react-ui-formalize'
 
 class MyComponent extends React.Component {
 	/* ... */
@@ -139,7 +139,7 @@ You can see this HoC as an addon to both `Formalize` and `Transform`. It handles
 ```javascript
 // My Component
 import React from 'react'
-import { Formalize, Transform, Validate } from 'react-ui-form'
+import { Formalize, Transform, Validate } from 'react-ui-formalize'
 
 class MyComponent extends React.Component {
 	/* ... */
