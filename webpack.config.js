@@ -2,22 +2,23 @@ var webpack = require('webpack')
 var path = require('path')
 
 module.exports = {
-	entry: ['./src/index.js'],
+	context: path.join(__dirname, 'src'),
+	entry: [path.join(__dirname, 'src', 'index.js')],
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: 'index.js',
 
-		library: 'react-ui-form',
+		library: 'react-ui-formalize',
 		libraryTarget: 'umd'
 	},
 	module: {
-		loaders: [
-			{ test: /\.jsx?$/, exclude: /node_modules/, loaders: ['babel'] },
+		rules: [
+			{ test: /\.jsx?$/, exclude: /node_modules/, use: ['babel-loader'] },
 		]
 	},
 	resolve: {
-		extensions: ['', '.js', '.jsx', '.json'],
-		modulesDirectories: ['node_modules', 'src']
+		extensions: ['.js', '.jsx', '.json'],
+		modules: ['node_modules', 'src']
 	},
 	plugins: [
 		new webpack.DefinePlugin({
