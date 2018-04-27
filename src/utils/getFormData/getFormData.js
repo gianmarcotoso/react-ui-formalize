@@ -1,7 +1,7 @@
-const getFormData = (data) => {
+const getFormData = data => {
 	let formData = new FormData()
 
-	Object.keys(data).forEach( p => {
+	Object.keys(data).forEach(p => {
 		let value = data[p]
 		if (value === null || typeof value === 'undefined') {
 			return
@@ -15,7 +15,7 @@ const getFormData = (data) => {
 			}
 
 			for (let i = 0; i < value.length; i++) {
-				formData.append(`${p}_${i}`, value.item(i))
+				formData.append(`${p}[]`, value.item(i))
 			}
 
 			return
@@ -28,7 +28,7 @@ const getFormData = (data) => {
 		}
 
 		formData.append(p, value)
-	} )
+	})
 
 	return formData
 }
