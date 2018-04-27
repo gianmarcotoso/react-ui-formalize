@@ -7,7 +7,7 @@
 		exports["react-ui-formalize"] = factory(require("react"));
 	else
 		root["react-ui-formalize"] = factory(root["react"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
+})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -2772,7 +2772,7 @@ var getFormData = function getFormData(data) {
 			}
 
 			for (var i = 0; i < value.length; i++) {
-				formData.append(p + '_' + i, value.item(i));
+				formData.append(p + '[]', value.item(i));
 			}
 
 			return;
