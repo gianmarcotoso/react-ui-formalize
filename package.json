@@ -1,6 +1,6 @@
 {
 	"name": "react-ui-formalize",
-	"version": "0.2.2",
+	"version": "0.3.0",
 	"description": "A set of HoC to help with form management in ReactJS",
 	"main": "dist/index.js",
 	"scripts": {
