@@ -6,7 +6,7 @@ import { Component } from 'react'
 let Formalize = Content =>
 	class extends Component {
 		static defaultProps = {
-			wrap: true
+			wrap: true,
 		}
 
 		static propTypes = {
@@ -18,18 +18,20 @@ let Formalize = Content =>
 			onReset: func,
 
 			validate: func,
-			transform: func
+			transform: func,
 		}
 
 		constructor(props) {
 			super(props)
 
 			this.state = {
-				data: {}
+				data: {},
 			}
 
 			this.handleFormValueChange = this.handleFormValueChange.bind(this)
-			this.handleMultipleFormValuesChange = this.handleMultipleFormValuesChange.bind(this)
+			this.handleMultipleFormValuesChange = this.handleMultipleFormValuesChange.bind(
+				this,
+			)
 			this.handleFormSubmit = this.handleFormSubmit.bind(this)
 			this.handleFormReset = this.handleFormReset.bind(this)
 		}
@@ -38,7 +40,7 @@ let Formalize = Content =>
 			this.setState({ data: this.props.data || {} })
 		}
 
-		componentWillReceiveProps(props) {
+		componentDidUpdate(props) {
 			if (!isEqual(props.data, this.props.data)) {
 				this.setState({ data: props.data || {} })
 
@@ -52,7 +54,7 @@ let Formalize = Content =>
 			return new Promise(resolve => {
 				const data = {
 					...this.state.data,
-					...values
+					...values,
 				}
 
 				if (this.props.clearValidationStatus) {
@@ -64,7 +66,7 @@ let Formalize = Content =>
 						this.props.onChange(
 							Object.keys(values),
 							Object.keys(values).map(k => values[k]),
-							this.state.data
+							this.state.data,
 						)
 					}
 
@@ -77,7 +79,7 @@ let Formalize = Content =>
 			return new Promise(resolve => {
 				const data = {
 					...this.state.data,
-					[property]: value
+					[property]: value,
 				}
 
 				if (this.props.clearValidationStatus) {
@@ -96,8 +98,11 @@ let Formalize = Content =>
 
 		handleFormSubmit(event) {
 			event.preventDefault()
+			event.stopPropagation()
 
-			const data = this.props.transform ? this.props.transform(this.state.data) : this.state.data
+			const data = this.props.transform
+				? this.props.transform(this.state.data)
+				: this.state.data
 
 			if (this.props.validate && !this.props.validate(data)) {
 				return
@@ -125,7 +130,9 @@ let Formalize = Content =>
 					>
 						<Content
 							{...this.props}
-							onMultipleFormValuesChange={this.handleMultipleFormValuesChange}
+							onMultipleFormValuesChange={
+								this.handleMultipleFormValuesChange
+							}
 							onFormValueChange={this.handleFormValueChange}
 							data={this.state.data}
 						/>
@@ -139,7 +146,9 @@ let Formalize = Content =>
 						{...this.props}
 						onFormSubmit={this.handleFormSubmit}
 						onFormReset={this.handleFormReset}
-						onMultipleFormValuesChange={this.handleMultipleFormValuesChange}
+						onMultipleFormValuesChange={
+							this.handleMultipleFormValuesChange
+						}
 						onFormValueChange={this.handleFormValueChange}
 						data={this.state.data}
 					/>
