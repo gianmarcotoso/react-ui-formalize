@@ -42,7 +42,7 @@ let Formalize = Content =>
 
 		componentDidUpdate(props) {
 			if (!isEqual(props.data, this.props.data)) {
-				this.setState({ data: props.data || {} })
+				this.setState({ data: this.props.data || {} })
 
 				if (this.props.clearValidationStatus) {
 					this.props.clearValidationStatus()
